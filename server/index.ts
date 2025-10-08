@@ -1,5 +1,5 @@
 import express from "express";
-import { setupAuth, isAuthenticated } from "./replitAuth.js";
+import { setupAuth, isAuthenticated } from "./googleAuth.js";
 import { storage } from "./storage.js";
 
 const app = express();
@@ -12,7 +12,7 @@ async function main() {
 
   app.get('/api/auth/user', isAuthenticated, async (req: any, res) => {
     try {
-      const userId = req.user.claims.sub;
+      const userId = req.user.id;
       const user = await storage.getUser(userId);
       res.json(user);
     } catch (error) {
