@@ -1,6 +1,6 @@
 import express from "express";
-import { setupAuth, isAuthenticated } from "./replitAuth";
-import { storage } from "./storage";
+import { setupAuth, isAuthenticated } from "./replitAuth.js";
+import { storage } from "./storage.js";
 
 const app = express();
 const PORT = 3000;
