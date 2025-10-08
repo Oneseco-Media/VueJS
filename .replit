@@ -1,5 +1,5 @@
 entrypoint = "src/App.vue"
-modules = ["vue-node-20:v2-20240116-2181bf7"]
+modules = ["vue-node-20", "nodejs-20"]
 
 [nix]
 channel = "stable-23_11"
@@ -7,3 +7,7 @@ channel = "stable-23_11"
 [[ports]]
 localPort = 5173
 externalPort = 80
+
+[agent]
+expertMode = true
+integrations = ["javascript_database:1.0.0"]
