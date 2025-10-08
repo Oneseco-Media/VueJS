@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "server": "tsx server/index.ts",
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
     "@types/connect-pg-simple": "^7.0.3",
     "@types/express": "^5.0.3",
     "@types/express-session": "^1.18.2",
@@ -29,8 +32,10 @@
     "passport-oauth2": "^1.8.0",
     "pinia": "^2.1.7",
     "postgres": "^3.4.7",
+    "tsx": "^4.20.6",
     "vue": "^3.3.11",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "ws": "^8.18.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
