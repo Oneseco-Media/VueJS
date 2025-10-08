@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
+    "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"]
     }
   },
   "exclude": ["node_modules", "dist"]
