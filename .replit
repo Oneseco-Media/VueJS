@@ -5,6 +5,10 @@ modules = ["vue-node-20", "nodejs-20"]
 channel = "stable-23_11"
 
 [[ports]]
+localPort = 5000
+externalPort = 5000
+
+[[ports]]
 localPort = 5173
 externalPort = 80
 
