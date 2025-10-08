@@ -1,14 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LandingView from '../views/LandingView.vue'
-import { useAuth } from '@/composables/useAuth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'root',
       component: HomeView,
       meta: { requiresAuth: true }
     },
@@ -26,35 +25,31 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  const { isAuthenticated, isLoading } = useAuth()
-  
-  if (isLoading.value) {
-    const unwatch = router.app?.$watch(
-      () => isLoading.value,
-      (loading) => {
-        if (!loading) {
-          unwatch?.()
-          handleNavigation()
-        }
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth) {
+    try {
+      const response = await fetch('/api/auth/user')
+      if (response.ok) {
+        next()
+      } else {
+        next({ name: 'landing' })
       }
-    )
-    
-    if (!isLoading.value) {
-      handleNavigation()
-    }
-  } else {
-    handleNavigation()
-  }
-  
-  function handleNavigation() {
-    if (to.meta.requiresAuth && !isAuthenticated.value) {
+    } catch (error) {
       next({ name: 'landing' })
-    } else if (to.name === 'landing' && isAuthenticated.value) {
-      next({ name: 'home' })
-    } else {
+    }
+  } else if (to.name === 'landing') {
+    try {
+      const response = await fetch('/api/auth/user')
+      if (response.ok) {
+        next({ name: 'root' })
+      } else {
+        next()
+      }
+    } catch (error) {
       next()
     }
+  } else {
+    next()
   }
 })
 
