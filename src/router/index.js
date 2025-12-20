@@ -1,56 +1,56 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LandingView from '../views/LandingView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import LandingView from "../views/LandingView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'root',
+      path: "/",
+      name: "root",
       component: HomeView,
       meta: { requiresAuth: true }
     },
     {
-      path: '/landing',
-      name: 'landing',
+      path: "/landing",
+      name: "landing",
       component: LandingView
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      path: "/about",
+      name: "about",
+      component: () => import("../views/AboutView.vue"),
       meta: { requiresAuth: true }
     }
   ]
-})
+});
 
 router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     try {
-      const response = await fetch('/api/auth/user')
+      const response = await fetch("/api/auth/user");
       if (response.ok) {
-        next()
+        next();
       } else {
-        next({ name: 'landing' })
+        next({ name: "landing" });
       }
     } catch (error) {
-      next({ name: 'landing' })
+      next({ name: "landing" });
     }
-  } else if (to.name === 'landing') {
+  } else if (to.name === "landing") {
     try {
-      const response = await fetch('/api/auth/user')
+      const response = await fetch("/api/auth/user");
       if (response.ok) {
-        next({ name: 'root' })
+        next({ name: "root" });
       } else {
-        next()
+        next();
       }
     } catch (error) {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;
