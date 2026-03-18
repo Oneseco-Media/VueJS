@@ -1,0 +1,3 @@
+[submodule "https-colab.research.google.com-notebooks"]
+	path = https-colab.research.google.com-notebooks
+	url = https://cybersoulja@bitbucket.org/daily-dev/https-colab.research.google.com-notebooks.git
